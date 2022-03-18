@@ -21,9 +21,12 @@ class CategorieVehicule
     #[ORM\OneToMany(mappedBy: 'categorieVehicule', targetEntity: TypeVehicule::class)]
     private $type;
 
+
+
     public function __construct()
     {
         $this->type = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -72,4 +75,6 @@ class CategorieVehicule
 
         return $this;
     }
+
+
 }

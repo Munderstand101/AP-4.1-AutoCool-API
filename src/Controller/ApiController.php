@@ -34,7 +34,7 @@ class ApiController extends AbstractController
 
         $user = $this->userRepository->findOneBy(['username' => $username]);
 
-        if ($password == $user->getPassword())
+        if ($password == $user->getPassword() )
         {
 
             $data = [
@@ -47,7 +47,7 @@ class ApiController extends AbstractController
         }
         else
         {
-            return new JsonResponse(['status' => 'Movais mdp!'], Response::HTTP_CREATED);
+            return new JsonResponse(['status' => 'Mauvais mdp!'], Response::HTTP_CREATED);
         }
     }
 

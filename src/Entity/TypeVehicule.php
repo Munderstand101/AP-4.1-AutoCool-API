@@ -21,8 +21,7 @@ class TypeVehicule
     #[ORM\ManyToOne(targetEntity: CategorieVehicule::class, inversedBy: 'type')]
     private $categorieVehicule;
 
-    #[ORM\OneToMany(mappedBy: 'typeVehicule', targetEntity: Vehicule::class)]
-    private $vehicule;
+
 
     public function __construct()
     {

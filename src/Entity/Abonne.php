@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AbonneRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AbonneRepository::class)]
@@ -58,8 +60,17 @@ class Abonne
     #[ORM\Column(type: 'string', length: 255)]
     private $ribFourni;
 
-    #[ORM\ManyToOne(targetEntity: Formule::class, inversedBy: 'abonnes')]
+    #[ORM\ManyToMany(targetEntity: Formule::class, inversedBy: 'abonnes')]
+    #[ORM\JoinTable("Adhere")]
     private $formule;
+
+    public function __construct()
+    {
+        $this->formule = new ArrayCollection();
+    }
+
+//    #[ORM\ManyToOne(targetEntity: Formule::class, inversedBy: 'abonnes')]
+//    private $formule;
 
 
     public function getId(): ?int
@@ -255,6 +266,22 @@ class Abonne
     public function setFormule(?Formule $formule): self
     {
         $this->formule = $formule;
+
+        return $this;
+    }
+
+    public function addFormule(Formule $formule): self
+    {
+        if (!$this->formule->contains($formule)) {
+            $this->formule[] = $formule;
+        }
+
+        return $this;
+    }
+
+    public function removeFormule(Formule $formule): self
+    {
+        $this->formule->removeElement($formule);
 
         return $this;
     }

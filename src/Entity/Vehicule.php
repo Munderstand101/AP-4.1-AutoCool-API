@@ -31,6 +31,9 @@ class Vehicule
     #[ORM\ManyToOne(targetEntity: TypeVehicule::class, inversedBy: 'vehicule')]
     private $typeVehicule;
 
+    #[ORM\ManyToOne(targetEntity: Lieu::class, inversedBy: 'vehicule')]
+    private $lieu;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +107,18 @@ class Vehicule
     public function setTypeVehicule(?TypeVehicule $typeVehicule): self
     {
         $this->typeVehicule = $typeVehicule;
+
+        return $this;
+    }
+
+    public function getLieu(): ?Lieu
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?Lieu $lieu): self
+    {
+        $this->lieu = $lieu;
 
         return $this;
     }

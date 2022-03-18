@@ -33,8 +33,11 @@ class Formule
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private $caution;
 
-    #[ORM\OneToMany(mappedBy: 'formule', targetEntity: Abonne::class)]
+    #[ORM\ManyToMany(targetEntity: Abonne::class, mappedBy: 'formule')]
     private $abonnes;
+
+//    #[ORM\OneToMany(mappedBy: 'formule', targetEntity: Abonne::class)]
+//    private $abonnes;
 
 
     public function __construct()
