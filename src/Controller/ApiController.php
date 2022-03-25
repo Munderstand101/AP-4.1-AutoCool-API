@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\AbonneRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,9 +16,10 @@ class ApiController extends AbstractController
 
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, AbonneRepository $abonneRepository)
     {
         $this->userRepository = $userRepository;
+        $this->abonneRepository = $abonneRepository;
     }
 
     #[Route('/api/login', name: 'api_login', methods: "POST")]
@@ -51,4 +53,21 @@ class ApiController extends AbstractController
         }
     }
 
+
+    #[Route('/api/abonne', name: 'get_all_abonne', methods: "GET")]
+    public function getAll(): JsonResponse
+    {
+        $abonnes = $this->abonneRepository->findAll();
+        $data = [];
+
+        foreach ($abonnes as $abonne) {
+            $data[] = [
+                'nom' => $abonne->getNom(),
+                'prenom' => $abonne->getPrenom(),
+
+            ];
+        }
+
+        return new JsonResponse($data, Response::HTTP_OK);
+    }
 }
