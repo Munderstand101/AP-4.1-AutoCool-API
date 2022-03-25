@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\AbonneRepository;
 use App\Repository\UserRepository;
+use App\Repository\FormuleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,10 +17,11 @@ class ApiController extends AbstractController
 
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository, AbonneRepository $abonneRepository)
+    public function __construct(UserRepository $userRepository, AbonneRepository $abonneRepository, FormuleRepository $formuleRepository)
     {
         $this->userRepository = $userRepository;
         $this->abonneRepository = $abonneRepository;
+        $this->formuleRepository = $formuleRepository;
     }
 
     #[Route('/api/login', name: 'api_login', methods: "POST")]
@@ -55,7 +57,7 @@ class ApiController extends AbstractController
 
 
     #[Route('/api/abonne', name: 'get_all_abonne', methods: "GET")]
-    public function getAll(): JsonResponse
+    public function getAllAbonne(): JsonResponse
     {
         $abonnes = $this->abonneRepository->findAll();
         $data = [];
@@ -65,6 +67,21 @@ class ApiController extends AbstractController
                 'nom' => $abonne->getNom(),
                 'prenom' => $abonne->getPrenom(),
 
+            ];
+        }
+
+        return new JsonResponse($data, Response::HTTP_OK);
+    }
+
+    #[Route('/api/formule', name: 'get_all_formule', methods: "GET")]
+    public function getNameFormule(): JsonResponse
+    {
+        $formules = $this->formuleRepository->findAll();
+        $data = [];
+
+        foreach ($formules as $formule) {
+            $data[] = [
+                'libelle' => $formule->getLibelle(),
             ];
         }
 
