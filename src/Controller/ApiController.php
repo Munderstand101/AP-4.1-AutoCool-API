@@ -83,6 +83,7 @@ class ApiController extends AbstractController
 
         foreach ($formules as $formule) {
             $data[] = [
+                'id' => $formule->getId(),
                 'libelle' => $formule->getLibelle(),
             ];
         }
