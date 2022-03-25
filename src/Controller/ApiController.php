@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\AbonneRepository;
+use App\Repository\CategorieVehiculeRepository;
 use App\Repository\UserRepository;
 use App\Repository\FormuleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,11 +18,12 @@ class ApiController extends AbstractController
 
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository, AbonneRepository $abonneRepository, FormuleRepository $formuleRepository)
+    public function __construct(UserRepository $userRepository, AbonneRepository $abonneRepository, FormuleRepository $formuleRepository, CategorieVehiculeRepository $categorieVehiculeRepository)
     {
         $this->userRepository = $userRepository;
         $this->abonneRepository = $abonneRepository;
         $this->formuleRepository = $formuleRepository;
+        $this->categorieVehiculeRepository = $categorieVehiculeRepository;
     }
 
     #[Route('/api/login', name: 'api_login', methods: "POST")]
@@ -87,4 +89,21 @@ class ApiController extends AbstractController
 
         return new JsonResponse($data, Response::HTTP_OK);
     }
+
+
+    #[Route('/api/carcateg', name: 'get_all_categ', methods: "GET")]
+    public function getAllcarcateg(): JsonResponse
+    {
+        $categs = $this->categorieVehiculeRepository->findAll();
+        $data = [];
+
+        foreach ($categs as $categ) {
+            $data[] = [
+                'nom' => $categ->getLibelle(),
+            ];
+        }
+
+        return new JsonResponse($data, Response::HTTP_OK);
+    }
+
 }
