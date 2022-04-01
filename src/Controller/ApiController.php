@@ -18,12 +18,12 @@ class ApiController extends AbstractController
 
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository, AbonneRepository $abonneRepository, FormuleRepository $formuleRepository, CategorieVehiculeRepository $categorieVehiculeRepository)
+    public function __construct(UserRepository $userRepository, AbonneRepository $abonneRepository, FormuleRepository $formuleRepository)
     {
         $this->userRepository = $userRepository;
         $this->abonneRepository = $abonneRepository;
         $this->formuleRepository = $formuleRepository;
-        $this->categorieVehiculeRepository = $categorieVehiculeRepository;
+
     }
 
     #[Route('/api/login', name: 'api_login', methods: "POST")]
@@ -92,20 +92,28 @@ class ApiController extends AbstractController
     }
 
 
-    #[Route('/api/carcateg', name: 'get_all_categ', methods: "GET")]
-    public function getAllcarcateg(): JsonResponse
+
+    #[Route('/api/adhere/{id}', name: 'get_all_categ', methods: "GET")]
+    public function getAdherent(Request $request, int $id): JsonResponse
     {
-        $categs = $this->categorieVehiculeRepository->findAll();
+
+        //dd($id);
+
+        if(empty($id)) {
+            throw new NotFoundHttpException('Expecting mandatory parameters!');
+        }
+
+        $adherents = $this->formuleRepository->findByAbonneWithFormuleId($id);
+
         $data = [];
 
-        foreach ($categs as $categ) {
+        foreach ($adherents as $adherent) {
             $data[] = [
-                'nom' => $categ->getLibelle(),
+                'nomprenom' => array_values($adherent)[0],
+                'id' => array_values($adherent)[1],
             ];
         }
 
-
         return new JsonResponse($data, Response::HTTP_OK);
     }
-
 }

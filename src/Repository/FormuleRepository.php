@@ -19,6 +19,25 @@ class FormuleRepository extends ServiceEntityRepository
         parent::__construct($registry, Formule::class);
     }
 
+    public function findByAbonneWithFormuleId(int $id) : array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT CONCAT(A.nom, " " , A.prenom) AS nomPrenom, A.id
+            FROM abonne AS A INNER JOIN adhere as AD ON A.id = AD.abonne_id
+            WHERE AD.formule_id = ?
+            ';
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $id);
+        $resultSet = $stmt->executeQuery();
+      
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+    }
+
+
     // /**
     //  * @return Formula[] Returns an array of Formula objects
     //  */
