@@ -93,11 +93,9 @@ class ApiController extends AbstractController
 
 
 
-    #[Route('/api/adhere/{id}', name: 'get_all_categ', methods: "GET")]
+    #[Route('/api/adhere/{id}', name: 'get_all_adherent', methods: "GET")]
     public function getAdherent(Request $request, int $id): JsonResponse
     {
-
-        //dd($id);
 
         if(empty($id)) {
             throw new NotFoundHttpException('Expecting mandatory parameters!');
@@ -111,6 +109,44 @@ class ApiController extends AbstractController
             $data[] = [
                 'nomprenom' => array_values($adherent)[0],
                 'id' => array_values($adherent)[1],
+            ];
+        }
+
+        return new JsonResponse($data, Response::HTTP_OK);
+    }
+
+    #[Route('/api/adhere/{id}/info', name: 'get_all_adherent_information', methods: "GET")]
+    public function getAdherentInformation(Request $request, int $id): JsonResponse
+    {
+
+        if(empty($id)) {
+            throw new NotFoundHttpException('Expecting mandatory parameters!');
+        }
+
+        $adherents = $this->abonneRepository->findAbonneAndDateById($id);
+
+        $data = [];
+
+        foreach ($adherents as $adherent) {
+            $data[] = [
+                "id" => array_values($adherent)[0],
+                "nom" => array_values($adherent)[1],
+                "prenom" => array_values($adherent)[2],
+                "date_naissance" => array_values($adherent)[3],
+                "rue" => array_values($adherent)[4],
+                "ville" => array_values($adherent)[5],
+                "code_postal" => array_values($adherent)[6],
+                "tel" => array_values($adherent)[7],
+                "tel_mobile" => array_values($adherent)[8],
+                "email" => array_values($adherent)[9],
+                "num_permis" => array_values($adherent)[10],
+                "lieu_permis" => array_values($adherent)[11],
+                "date_permis" => array_values($adherent)[12],
+                "paiement_adhesion" => array_values($adherent)[13],
+                "paiement_caution" => array_values($adherent)[14],
+                "rib_fourni" => array_values($adherent)[15],
+                "civilite" => array_values($adherent)[16],
+                "dateAdhesion" => array_values($adherent)[17],
             ];
         }
 

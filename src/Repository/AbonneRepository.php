@@ -19,6 +19,24 @@ class AbonneRepository extends ServiceEntityRepository
         parent::__construct($registry, Abonne::class);
     }
 
+    public function findAbonneAndDateById(int $id) : array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT A.*, AD.dateAdhesion
+            FROM abonne AS A inner join adhere AS AD on A.id = AD.abonne_id
+            WHERE A.id = ?;
+            ';
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $id);
+        $resultSet = $stmt->executeQuery();
+      
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+    }
+
     // /**
     //  * @return Abonne[] Returns an array of Abonne objects
     //  */
