@@ -152,4 +152,62 @@ class ApiController extends AbstractController
 
         return new JsonResponse($data, Response::HTTP_OK);
     }
+
+    #[Route('/api/create/adhere/', name: 'create_adherant_formule', methods: "POST")]
+    public function addAbonneAndAdherant(Request $request): Response
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $nom = $data['nom'];
+        $prenom = $data['prenom'];
+        $datenaiss = $data['date_naissance'];
+        $rue = $data['rue'];
+        $ville = $data['ville'];
+        $codepostal = $data['code_postal'];
+        $telfixe = $data['tel'];
+        $telmobile = $data['tel_mobile'];
+        $email = $data['email'];
+        $num_permis = $data['num_permis'];
+        $lieu_permis = $data['lieu_permis'];
+        $date_permis = $data['date_permis'];
+        $paiement_adhesion = $data['paiement_adhesion'];
+        $paiement_caution = $data['paiement_caution'];
+        $rib_fourni = $data['rib_fourni'];
+        $civilite = $data['civilite'];
+        $idFormule = $data['idformule'];
+        $dateAdhesion = $data['dateAdhesion'];
+
+        // $nom = "bob";
+        // $prenom = "bob";
+        // $datenaiss = "2020-03-03";
+        // $rue = "bob";
+        // $ville = "bob";
+        // $codepostal = "bob";
+        // $telfixe = "bob";
+        // $telmobile = "bob";
+        // $email = "bob";
+        // $num_permis = "bob";
+        // $lieu_permis = "bob";
+        // $date_permis = "2020-03-03";
+        // $paiement_adhesion = "bob";
+        // $paiement_caution = "bob";
+        // $rib_fourni = "bob";
+        // $civilite = "bob";
+        // $idFormule = 1;
+        // $dateAdhesion = "2020-03-03";
+
+        if (empty($nom) || empty($prenom)  || empty($datenaiss)  || empty($rue)  || empty($ville) || empty($codepostal) || empty($telmobile) || empty($email) || empty($num_permis)|| empty($lieu_permis)|| empty($date_permis)|| empty($paiement_adhesion)|| empty($paiement_caution)|| empty($rib_fourni)|| empty($civilite)) {
+            throw new NotFoundHttpException('Expecting mandatory parameters!');
+        }
+
+        $user = $this->userRepository->createAbonneAndAdherent($nom, $prenom, $datenaiss, $rue, $ville, $codepostal, $telfixe, $telmobile, $email, $num_permis, $lieu_permis, $date_permis, $paiement_adhesion, $paiement_caution, $rib_fourni, $civilite, $idFormule, $dateAdhesion);
+
+        if($user == []){
+            return new JsonResponse($user, Response::HTTP_OK);
+        }else{
+            throw new NotFoundHttpException('error!');
+        }
+
+ 
+    }
 }
