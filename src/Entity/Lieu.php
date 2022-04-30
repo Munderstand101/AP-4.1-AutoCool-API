@@ -6,6 +6,7 @@ use App\Repository\LieuRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: LieuRepository::class)]
 class Lieu
@@ -13,9 +14,11 @@ class Lieu
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups("read")]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups("read")]
     private $libelle;
 
     #[ORM\ManyToOne(targetEntity: Ville::class, inversedBy: 'lieu')]

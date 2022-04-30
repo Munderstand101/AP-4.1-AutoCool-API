@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\VehiculeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 #[ORM\Entity(repositoryClass: VehiculeRepository::class)]
 class Vehicule
@@ -11,27 +13,37 @@ class Vehicule
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups("read")]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups("read")]
     private $libelle;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups("read")]
     private $kilometrage;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups("read")]
     private $niveau_essence;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups("read")]
     private $nb_place;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups("read")]
     private $estAutomatique;
 
     #[ORM\ManyToOne(targetEntity: TypeVehicule::class, inversedBy: 'vehicule')]
+    #[Groups("read")]
+//    #[MaxDepth(1)]
     private $typeVehicule;
 
     #[ORM\ManyToOne(targetEntity: Lieu::class, inversedBy: 'vehicule')]
+    #[Groups("read")]
+//    #[MaxDepth(1)]
     private $lieu;
 
     public function getId(): ?int
