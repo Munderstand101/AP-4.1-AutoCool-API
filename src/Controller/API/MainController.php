@@ -21,7 +21,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
-#[Route('/api/main/', name: 'api_main_', methods: "GET")]
+#[Route('/api/main/', name: 'api_main_')]
 class MainController extends AbstractController
 {
 
@@ -31,47 +31,50 @@ class MainController extends AbstractController
     {
         $this->userRepository = $userRepository;
     }
-    #[Route('/', name: 'index', methods: "GET")]
+
+    #[Route('', name: 'index', methods: "GET")]
     public function index(): Response
     {
-        return new Response(
-            'Hakuna Matata'
-        );
+        return $this->json([
+            'status' => 200,
+            'message' => "Hakuna Matata",
+        ], 200);
     }
 
-    #[Route('login', name: 'api_login', methods: "POST")]
+    #[Route('login', name: 'login', methods: "POST")]
     public function login(UserPasswordHasherInterface $passwordHasher, Request $request): Response
     {
         $data = json_decode($request->getContent(), true);
         try {
 
             if (empty($data)  || empty($data['username']) || empty($data['password'])){
-                return $this->json(
-                    [
-                        'errors' => [
-                            'message' => 'Le contenu de la requete est vide, ou une valeur est menquante !!'
-                        ]
-                    ],
-                    404
-                );
+                return $this->json([
+                    'status' => 403,
+                    'message' => "Le contenu de la requete est vide, ou une valeur est menquante !",
+                ], 403);
             }
 
             $user = $this->userRepository->findOneBy(['username' => $data['username']]);
+
+            if (!$user) {
+                return $this->json([
+                    'status' => 403,
+                    'message' => "Mauvais nom d'utilisateur !",
+                ], 403);
+            }
+
             $match = $passwordHasher->isPasswordValid($user, $data['password']);
 
             if ($match) {
                 return $this->json([
-                    'status' => 201,
                     'id' => $user->getId(),
                     'username' => $user->getUsername(),
                     'roles' => $user->getRoles(),
                 ], 201);
-
-
             } else {
                 return $this->json([
                     'status' => 403,
-                    'message' => "Wrong password !",
+                    'message' => "Mauvais mot de passe !",
                 ], 403);
             }
         }
@@ -81,7 +84,6 @@ class MainController extends AbstractController
                 'message' => $e->getMessage(),
             ], 400);
         }
-
     }
 
 }
