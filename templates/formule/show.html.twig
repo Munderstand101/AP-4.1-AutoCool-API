@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formule{% endblock %}
+
+{% block body %}
+    <h1>Formule</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ formule.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle</th>
+                <td>{{ formule.libelle }}</td>
+            </tr>
+            <tr>
+                <th>FraisAdhesion</th>
+                <td>{{ formule.fraisAdhesion }}</td>
+            </tr>
+            <tr>
+                <th>TarifMensuel</th>
+                <td>{{ formule.tarifMensuel }}</td>
+            </tr>
+            <tr>
+                <th>PartSociale</th>
+                <td>{{ formule.partSociale }}</td>
+            </tr>
+            <tr>
+                <th>DepotGarantie</th>
+                <td>{{ formule.depotGarantie }}</td>
+            </tr>
+            <tr>
+                <th>Caution</th>
+                <td>{{ formule.caution }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('formule_index') }}">back to list</a>
+
+    <a href="{{ path('formule_edit', {'id': formule.id}) }}">edit</a>
+
+    {{ include('formule/_delete_form.html.twig') }}
+{% endblock %}

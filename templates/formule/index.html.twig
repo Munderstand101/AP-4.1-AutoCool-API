@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formule index{% endblock %}
+
+{% block body %}
+    <h1>Formule index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>FraisAdhesion</th>
+                <th>TarifMensuel</th>
+                <th>PartSociale</th>
+                <th>DepotGarantie</th>
+                <th>Caution</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for formule in formules %}
+            <tr>
+                <td>{{ formule.id }}</td>
+                <td>{{ formule.libelle }}</td>
+                <td>{{ formule.fraisAdhesion }}</td>
+                <td>{{ formule.tarifMensuel }}</td>
+                <td>{{ formule.partSociale }}</td>
+                <td>{{ formule.depotGarantie }}</td>
+                <td>{{ formule.caution }}</td>
+                <td>
+                    <a href="{{ path('formule_show', {'id': formule.id}) }}">show</a>
+                    <a href="{{ path('formule_edit', {'id': formule.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('formule_new') }}">Create new</a>
+{% endblock %}

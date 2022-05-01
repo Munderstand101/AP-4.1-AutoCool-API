@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CategorieVehicule index{% endblock %}
+
+{% block body %}
+    <h1>CategorieVehicule index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for categorie_vehicule in categorie_vehicules %}
+            <tr>
+                <td>{{ categorie_vehicule.id }}</td>
+                <td>{{ categorie_vehicule.libelle }}</td>
+                <td>
+                    <a href="{{ path('categorie_vehicule_show', {'id': categorie_vehicule.id}) }}">show</a>
+                    <a href="{{ path('categorie_vehicule_edit', {'id': categorie_vehicule.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('categorie_vehicule_new') }}">Create new</a>
+{% endblock %}

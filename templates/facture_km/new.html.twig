@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New FactureKM{% endblock %}
+
+{% block body %}
+    <h1>Create new FactureKM</h1>
+
+    {{ include('facture_km/_form.html.twig') }}
+
+    <a href="{{ path('facture_k_m_index') }}">back to list</a>
+{% endblock %}

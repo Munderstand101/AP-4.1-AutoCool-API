@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TrancheKm{% endblock %}
+
+{% block body %}
+    <h1>Create new TrancheKm</h1>
+
+    {{ include('tranche_km/_form.html.twig') }}
+
+    <a href="{{ path('tranche_km_index') }}">back to list</a>
+{% endblock %}

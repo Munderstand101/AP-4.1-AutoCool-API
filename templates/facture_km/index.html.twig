@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FactureKM index{% endblock %}
+
+{% block body %}
+    <h1>FactureKM index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>TarifKM</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for facture_k_m in facture_k_ms %}
+            <tr>
+                <td>{{ facture_k_m.id }}</td>
+                <td>{{ facture_k_m.tarifKM }}</td>
+                <td>
+                    <a href="{{ path('facture_k_m_show', {'id': facture_k_m.id}) }}">show</a>
+                    <a href="{{ path('facture_k_m_edit', {'id': facture_k_m.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('facture_k_m_new') }}">Create new</a>
+{% endblock %}

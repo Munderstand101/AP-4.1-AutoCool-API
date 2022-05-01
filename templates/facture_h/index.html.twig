@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FactureH index{% endblock %}
+
+{% block body %}
+    <h1>FactureH index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>TarifH</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for facture_h in facture_hs %}
+            <tr>
+                <td>{{ facture_h.id }}</td>
+                <td>{{ facture_h.tarifH }}</td>
+                <td>
+                    <a href="{{ path('facture_h_show', {'id': facture_h.id}) }}">show</a>
+                    <a href="{{ path('facture_h_edit', {'id': facture_h.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('facture_h_new') }}">Create new</a>
+{% endblock %}

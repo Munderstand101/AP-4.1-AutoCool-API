@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit TrancheHoraire{% endblock %}
+
+{% block body %}
+    <h1>Edit TrancheHoraire</h1>
+
+    {{ include('tranche_horaire/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('tranche_horaire_index') }}">back to list</a>
+
+    {{ include('tranche_horaire/_delete_form.html.twig') }}
+{% endblock %}

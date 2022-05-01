@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TrancheHoraire{% endblock %}
+
+{% block body %}
+    <h1>Create new TrancheHoraire</h1>
+
+    {{ include('tranche_horaire/_form.html.twig') }}
+
+    <a href="{{ path('tranche_horaire_index') }}">back to list</a>
+{% endblock %}

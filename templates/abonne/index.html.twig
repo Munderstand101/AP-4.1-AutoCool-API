@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Abonne index{% endblock %}
+
+{% block body %}
+    <h1>Abonne index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>DateNaissance</th>
+                <th>Rue</th>
+                <th>Ville</th>
+                <th>CodePostal</th>
+                <th>Tel</th>
+                <th>TelMobile</th>
+                <th>Email</th>
+                <th>NumPermis</th>
+                <th>LieuPermis</th>
+                <th>DatePermis</th>
+                <th>PaiementAdhesion</th>
+                <th>PaiementCaution</th>
+                <th>RibFourni</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for abonne in abonnes %}
+            <tr>
+                <td>{{ abonne.id }}</td>
+                <td>{{ abonne.nom }}</td>
+                <td>{{ abonne.prenom }}</td>
+                <td>{{ abonne.dateNaissance ? abonne.dateNaissance|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ abonne.rue }}</td>
+                <td>{{ abonne.ville }}</td>
+                <td>{{ abonne.codePostal }}</td>
+                <td>{{ abonne.tel }}</td>
+                <td>{{ abonne.telMobile }}</td>
+                <td>{{ abonne.email }}</td>
+                <td>{{ abonne.numPermis }}</td>
+                <td>{{ abonne.lieuPermis }}</td>
+                <td>{{ abonne.datePermis }}</td>
+                <td>{{ abonne.paiementAdhesion }}</td>
+                <td>{{ abonne.paiementCaution }}</td>
+                <td>{{ abonne.ribFourni }}</td>
+                <td>
+                    <a href="{{ path('abonne_show', {'id': abonne.id}) }}">show</a>
+                    <a href="{{ path('abonne_edit', {'id': abonne.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="17">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('abonne_new') }}">Create new</a>
+{% endblock %}

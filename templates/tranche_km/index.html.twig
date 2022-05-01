@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TrancheKm index{% endblock %}
+
+{% block body %}
+    <h1>TrancheKm index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>MinKm</th>
+                <th>MaxKm</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tranche_km in tranche_kms %}
+            <tr>
+                <td>{{ tranche_km.id }}</td>
+                <td>{{ tranche_km.minKm }}</td>
+                <td>{{ tranche_km.maxKm }}</td>
+                <td>
+                    <a href="{{ path('tranche_km_show', {'id': tranche_km.id}) }}">show</a>
+                    <a href="{{ path('tranche_km_edit', {'id': tranche_km.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('tranche_km_new') }}">Create new</a>
+{% endblock %}

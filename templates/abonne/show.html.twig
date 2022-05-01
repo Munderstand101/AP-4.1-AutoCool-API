@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Abonne{% endblock %}
+
+{% block body %}
+    <h1>Abonne</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ abonne.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ abonne.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ abonne.prenom }}</td>
+            </tr>
+            <tr>
+                <th>DateNaissance</th>
+                <td>{{ abonne.dateNaissance ? abonne.dateNaissance|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Rue</th>
+                <td>{{ abonne.rue }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ abonne.ville }}</td>
+            </tr>
+            <tr>
+                <th>CodePostal</th>
+                <td>{{ abonne.codePostal }}</td>
+            </tr>
+            <tr>
+                <th>Tel</th>
+                <td>{{ abonne.tel }}</td>
+            </tr>
+            <tr>
+                <th>TelMobile</th>
+                <td>{{ abonne.telMobile }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ abonne.email }}</td>
+            </tr>
+            <tr>
+                <th>NumPermis</th>
+                <td>{{ abonne.numPermis }}</td>
+            </tr>
+            <tr>
+                <th>LieuPermis</th>
+                <td>{{ abonne.lieuPermis }}</td>
+            </tr>
+            <tr>
+                <th>DatePermis</th>
+                <td>{{ abonne.datePermis }}</td>
+            </tr>
+            <tr>
+                <th>PaiementAdhesion</th>
+                <td>{{ abonne.paiementAdhesion }}</td>
+            </tr>
+            <tr>
+                <th>PaiementCaution</th>
+                <td>{{ abonne.paiementCaution }}</td>
+            </tr>
+            <tr>
+                <th>RibFourni</th>
+                <td>{{ abonne.ribFourni }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('abonne_index') }}">back to list</a>
+
+    <a href="{{ path('abonne_edit', {'id': abonne.id}) }}">edit</a>
+
+    {{ include('abonne/_delete_form.html.twig') }}
+{% endblock %}

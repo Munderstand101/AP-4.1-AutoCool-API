@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FactureKM{% endblock %}
+
+{% block body %}
+    <h1>FactureKM</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ facture_k_m.id }}</td>
+            </tr>
+            <tr>
+                <th>TarifKM</th>
+                <td>{{ facture_k_m.tarifKM }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('facture_k_m_index') }}">back to list</a>
+
+    <a href="{{ path('facture_k_m_edit', {'id': facture_k_m.id}) }}">edit</a>
+
+    {{ include('facture_km/_delete_form.html.twig') }}
+{% endblock %}

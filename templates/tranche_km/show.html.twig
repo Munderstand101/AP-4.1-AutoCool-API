@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TrancheKm{% endblock %}
+
+{% block body %}
+    <h1>TrancheKm</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tranche_km.id }}</td>
+            </tr>
+            <tr>
+                <th>MinKm</th>
+                <td>{{ tranche_km.minKm }}</td>
+            </tr>
+            <tr>
+                <th>MaxKm</th>
+                <td>{{ tranche_km.maxKm }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('tranche_km_index') }}">back to list</a>
+
+    <a href="{{ path('tranche_km_edit', {'id': tranche_km.id}) }}">edit</a>
+
+    {{ include('tranche_km/_delete_form.html.twig') }}
+{% endblock %}
